@@ -1,0 +1,167 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{booktabs}
+
+\geometry{margin=2.5cm}
+
+% Environnements mathématiques
+\newtheorem{definition}{Définition}[section]
+\newtheorem{theorem}{Théorème}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemme}[section]
+\newtheorem{remark}{Remarque}[section]
+
+\title{\textbf{Systèmes itérés de fonctions et géométrie fractale}}
+\author{\textbf{Manal Amhal}}
+\date{Juin 2023}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+\noindent Ce mémoire d'étude s'intéresse à la théorie des Systèmes de Fonctions Itérées (IFS) et à leur rôle dans la construction et l'analyse des objets fractals. En s'appuyant sur les notions de compacité, de contraction dans les espaces métriques complets et de transformations affines, nous étudions l'existence d'attracteurs invariants. Nous analysons ensuite les propriétés géométriques des similitudes et calculons la dimension de Hausdorff sur des exemples classiques : la courbe de Von Koch, le triangle de Sierpinski et la fougère de Barnsley.
+\end{abstract}
+
+\vspace{0.3cm}
+
+
+
+\section{Introduction}
+Le terme « fractale » a été introduit par Benoît Mandelbrot en 1975. Qu'elles soient observables dans la nature ou construites de manière itérative, les fractales sont des objets géométriques qui se distinguent par leur propriété d'autosimilarité. Un objet est dit autosimilaire si, lorsqu'on zoome sur l'une de ses parties, on retrouve (exactement ou statistiquement) la structure de l'objet initial à toutes les échelles.
+
+Benoît Mandelbrot a défini une figure fractale comme un objet géométrique ou naturel combinant les caractéristiques suivantes :
+\begin{enumerate}
+    \item Ses parties ont la même forme ou structure que le tout, à une échelle différente près (avec de légères déformations possibles).
+    \item Sa forme est extrêmement irrégulière, interrompue ou fragmentée, quelle que soit l'échelle d'examen.
+    \item Il contient des éléments distinctifs dont les échelles sont très variées et couvrent une très large gamme.
+\end{enumerate}
+
+Dans un premier temps, nous rappellerons les définitions et théorèmes essentiels de topologie et d'analyse. Puis nous verrons les caractéristiques des isométries, des similitudes et des transformations affines avant d'étudier plusieurs exemples d'attracteurs fractals.
+
+\section{Préliminaires topologiques et théorème d'attraction}
+
+\begin{definition} \textit{Similitude} :
+Une similitude est une transformation du plan $\mathbb{R}^2$ qui multiplie les distances par un réel $k > 0$, appelé rapport de la similitude. On distingue :
+\begin{itemize}
+    \item \textbf{Les similitudes directes :} composées d'une homothétie de rapport $k > 0$ et d'une rotation de même centre (conservant les angles orientés) ou d'une translation.
+    \item \textbf{Les similitudes indirectes :} composées d'une homothétie de rapport $k > 0$ et d'une réflexion axiale.
+\end{itemize}
+\end{definition}
+
+\begin{definition} \textit{Compacité dans $\mathbb{R}^2$} : 
+On appelle partie compacte de $\mathbb{R}^2$ toute partie fermée et bornée.
+\end{definition}
+
+\begin{definition} \textit{Autosimilarité stricte} : 
+Un ensemble $K \subset \mathbb{R}^2$ est dit autosimilaire s'il existe des similitudes $f_1, \dots, f_N$ ($N > 1$) de rapports $k_1, \dots, k_N < 1$ telles que :
+\begin{equation}
+K = \bigcup_{i=1}^{N} f_i(K)
+\end{equation}
+Dans le cas des attracteurs de systèmes de fonctions itérées, on parle d'autosimilarité déterministe.
+\end{definition}
+
+\begin{theorem}
+Soit $(C_n)_{n \in \mathbb{N}}$ une famille décroissante de compacts non vides de $\mathbb{R}^2$ ($C_0 \supset C_1 \supset \dots$). Alors l'intersection :
+\begin{equation}
+C = \bigcap_{n=0}^{\infty} C_n
+\end{equation}
+est un compact non vide de $\mathbb{R}^2$.
+\end{theorem}
+
+\begin{proof}
+Chaque $C_k$ étant compact dans $\mathbb{R}^2$, il est fermé. L'intersection quelconque de fermés étant fermée, $C$ est fermé. De plus, $C \subset C_0$, donc $C$ est borné. Ainsi, $C$ est un compact non vide de $\mathbb{R}^2$.
+\end{proof}
+
+\begin{definition} \textit{Contraction} :
+Une application $f: \mathbb{R}^2 \to \mathbb{R}^2$ est dite contractante s'il existe un réel $0 \le k < 1$ tel que :
+\begin{equation}
+\forall X, Y \in \mathbb{R}^2, \quad \|f(X) - f(Y)\| \le k \|X - Y\|
+\end{equation}
+\end{definition}
+
+\begin{theorem} \textit{Théorème d'attraction des IFS} :
+Soit $(f_i)_{i=1}^l$ une famille de contractions de $\mathbb{R}^2$. Il existe un unique compact non vide $C \subset \mathbb{R}^2$ invariant par la famille $f = (f_i)_{i=1}^l$, c'est-à-dire :
+\begin{equation}
+C = f(C) = \bigcup_{i=1}^{l} f_i(C)
+\end{equation}
+L'ensemble $C$ est appelé l'attracteur de la famille $(f_i)_{i=1}^l$. De plus, pour toute partie compacte non vide $E \subset \mathbb{R}^2$ telle que $f(E) \subset E$, la suite des itérés converge vers $C$ :
+\begin{equation}
+C = \bigcap_{k=0}^{\infty} f^k(E)
+\end{equation}
+\end{theorem}
+
+\section{Isométries, similitudes et transformations affines}
+
+\subsection{Isométries du plan euclidien}
+Les isométries sont des transformations affines conservant la norme et le produit scalaire :
+\begin{itemize}
+    \item \textbf{Rotations :} Isométries directes de matrice associée $R_\theta = \begin{pmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{pmatrix}$.
+    \item \textbf{Réflexions :} Isométries indirectes de matrice associée $S_\theta = \begin{pmatrix} \cos\theta & \sin\theta \\ \sin\theta & -\cos\theta \end{pmatrix}$.
+    \item \textbf{Translations :} Transformations de la forme $X \mapsto X + V$.
+\end{itemize}
+
+\begin{proposition}
+L'ensemble des similitudes de $\mathbb{R}^2$ muni de la composition formelle constitue un groupe. La composée de deux similitudes de rapports respectifs $k$ et $k'$ est une similitude de rapport $k \cdot k'$.
+\end{proposition}
+
+\subsection{Transformations affines}
+Une transformation affine $f: \mathbb{R}^2 \to \mathbb{R}^2$ s'écrit sous forme matricielle :
+\begin{equation}
+\begin{pmatrix} x' \\ y' \end{pmatrix} = \begin{pmatrix} a & b \\ c & d \end{pmatrix} \begin{pmatrix} x \\ y \end{pmatrix} + \begin{pmatrix} e \\ f \end{pmatrix}
+\end{equation}
+Elle est bijective si et seulement si sa matrice associée $M = \begin{pmatrix} a & b \\ c & d \end{pmatrix}$ est inversible ($\det(M) \neq 0$). Si $F = f(E)$, alors l'aire s'exprime par $\mathcal{A}(F) = |\det(M)| \cdot \mathcal{A}(E)$.
+
+\section{Dimension de Hausdorff et calcul d'autosimilarité}
+
+Pour un objet autosimilaire $C = \bigcup_{i=1}^N f_i(C)$ généré par $N$ similitudes de rapports $0 < k_i < 1$, la mesure en dimension $d$ vérifie :
+\begin{equation}
+\mathrm{Mes}_d(C) = \sum_{i=1}^N k_i^d \, \mathrm{Mes}_d(C) \implies \sum_{i=1}^N k_i^d = 1
+\end{equation}
+
+Dans le cas où toutes les similitudes ont le même rapport $k_i = k$, la dimension d'autosimilarité (dimension de Hausdorff) se simplifie :
+\begin{equation}
+N \cdot k^d = 1 \iff d = \frac{\ln(N)}{\ln(1/k)}
+\end{equation}
+
+\section{Exemples d'attracteurs fractals}
+
+\subsection{Courbe et flocon de Von Koch}
+La courbe de Von Koch est générée par $N = 4$ similitudes de rapport $k = 1/3$. Sa dimension de Hausdorff est donc :
+\begin{equation}
+d = \frac{\ln(4)}{\ln(3)} \approx 1{,}2618
+\end{equation}
+
+\subsection{Triangle de Sierpinski}
+Le triangle de Sierpinski est construit à partir de $N = 3$ similitudes de rapport $k = 1/2$. Sa dimension d'autosimilarité est :
+\begin{equation}
+d = \frac{\ln(3)}{\ln(2)} \approx 1{,}585
+\end{equation}
+
+\subsection{Fougère de Barnsley}
+La fougère de Barnsley est l'attracteur d'un système de 4 transformations affines $f_i(X) = M_i X + V_i$ :
+\begin{itemize}
+    \item $f_1$ (tige) : $M_1 = \begin{pmatrix} 0 & 0 \\ 0 & 0{,}16 \end{pmatrix}, \quad V_1 = \begin{pmatrix} 0 \\ 0 \end{pmatrix}$
+    \item $f_2$ (feuillage supérieur) : $M_2 = \begin{pmatrix} 0{,}85 & 0{,}04 \\ -0{,}04 & 0{,}85 \end{pmatrix}, \quad V_2 = \begin{pmatrix} 0 \\ 1{,}60 \end{pmatrix}$
+    \item $f_3$ (branche gauche) : $M_3 = \begin{pmatrix} 0{,}20 & -0{,}26 \\ 0{,}23 & 0{,}22 \end{pmatrix}, \quad V_3 = \begin{pmatrix} 0 \\ 1{,}60 \end{pmatrix}$
+    \item $f_4$ (branche droite) : $M_4 = \begin{pmatrix} -0{,}15 & 0{,}28 \\ 0{,}26 & 0{,}24 \end{pmatrix}, \quad V_4 = \begin{pmatrix} 0 \\ 0{,}44 \end{pmatrix}$
+\end{itemize}
+
+\section{Conclusion}
+Les systèmes de fonctions itérées offrent un cadre mathématique rigoureux reliant l'analyse fonctionnelle, la topologie et la géométrie. En appliquant le théorème du point fixe dans des espaces métriques de compacts, les IFS permettent de modéliser et de synthétiser des structures complexes et fractales à partir d'un nombre restreint de paramètres affines.
+
+\begin{thebibliography}{9}
+\bibitem{bodin} A. Bodin, V. Combet, V. Mayer, \textit{Systèmes itérés de fonctions}, Exo7.
+\bibitem{sester} O. Sester, \textit{Les Systèmes de Fonctions Itérées}, Université Paris-Est Marne-la-Vallée, 2017.
+\bibitem{bazin} H. Bazin, P. Cardaliaguet, \textit{Mesure de Hausdorff et fractales}, 2020.
+\bibitem{deheuvels} T. Deheuvels, \textit{Mesures et dimension de Hausdorff, Introduction à l'étude des ensembles auto-similaires}.
+\bibitem{david} M.-C. David, F. Haglund, D. Perrin, \textit{Géométrie Affine}, Préparation au CAPES.
+\end{thebibliography}
+
+\end{document}
